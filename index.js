@@ -18,7 +18,7 @@ app.use("*", cors(corsOptions), function (req, res, next) {
   next();
 });
 
-const { Router1,Router2 } = require("./Routers/router.config");
+const { Router1,Router2,Router3 } = require("./Routers/router.config");
 
 //Body Parsing Configuration
 app.use(express.json());
@@ -51,6 +51,7 @@ try {
 //
 app.use('/api/v1/login', Router1);
 app.use('/api/v1/SignUp', Router2);
+app.use('/api/v1/CalculateResult', Router3);
 
 
 if (process.env.NODE_ENV === "production") {
