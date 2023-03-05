@@ -2,6 +2,7 @@ const {SignUp_Model} =require ("../../DatabaseSetup/Mongoose.SignUp.Schema");
 const bcrypt=require("bcryptjs");
 const LoginFunction=async (req,res,next)=>{
     const {Res_EmailId,Res_Password,Res_TypeOfUser}=req.body;
+    console.log(req.body);
     console.log(req.cookies);
     const Login_Check= await SignUp_Model.findOne({
         emailId:Res_EmailId, 
@@ -11,13 +12,8 @@ const LoginFunction=async (req,res,next)=>{
             status:"Error",
             message:"Email is not valid!"
         })
-    }else if(Login_Check.TypeofUser!=Res_TypeOfUser){
-        res.status(500).json({
-            status:"Error",
-            message:"Invalid user Access"
-        })
-        console.log("kkkk",Login_Check);
-    }else{
+    }
+    else{
         const is_Match= await bcrypt.compare(Res_Password, Login_Check.Password);
         if (!is_Match){
             res.status(500).json({
